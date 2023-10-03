@@ -5,8 +5,9 @@
 
 #include "pss.h"
 
-... define variables globales o funciones adicionales ...
+/*... define variables globales o funciones adicionales ...*/
 
 int main(int argc, char *argv[]) {
-  ... programe aca su solucion ...
+    
+
 }
