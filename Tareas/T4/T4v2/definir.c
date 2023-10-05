@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
     int sizeBytes= ftell(in);
     printf("El tamaño es: %d\n", sizeBytes);
     return 0;
-
+    
 
 
 }
