@@ -25,7 +25,7 @@ nadar:trasladarse en el agua, con los brazos y sin tocar el suelo
                                                                                 
 palacio:edificio utilizado como residencia de un magnate                        
 posada:establecimiento economico de hospedaje para viajeros                     
-                                                                                
+feo:feo                                                                         
                                                                                 
 taladro:herramienta aguda o cortante con que se agujerea la madera              
 perro:mamifero domestico con olfato muy fino, inteligente y leal                
@@ -36,7 +36,7 @@ perro:mamifero domestico con olfato muy fino, inteligente y leal
                                                                                 
                                                                                 
 correr:andar tan rapidamente que los pies quedan en el aire                     
-                                                                                
+alimento:sustancia ingerida por un ser vivo                                     
                                                                                 
                                                                                 
                                                                                 
