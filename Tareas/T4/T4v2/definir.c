@@ -1,3 +1,4 @@
+/*Nombre: Benjamín Reyes Bravo */
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -83,17 +84,18 @@ void insertar(char *nom_dicc, char *llave, char *def) {
     if (len + 1 < 80) {
         fprintf(in, "%s:%s", llave, def);
         
-        // Calcular cuántos espacios en blanco necesitamos para completar la línea
+        //Calculamos cuántos espacios en blanco necesitamos para completar la línea
         int espacios = 80 - len - 1;
         
-        // Rellenar con espacios en blanco
+        //Rellenamos con los espacios en blanco
         for (int i = 0; i < espacios; i++) {
             fprintf(in, " ");
         }
-        
+        //Agregamos el salto de línea
         fprintf(in, "\n");
     } else {
-        perror("La definición es demasiado larga");
+        //En caso de que la línea fuese a sobrepasar el límite de caracteres se lanza un error
+        fprintf(stderr, "La definición entregada es muy larga.\n");
         exit(3);
     }
     
