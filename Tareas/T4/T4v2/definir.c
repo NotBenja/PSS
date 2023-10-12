@@ -53,10 +53,11 @@ void insertar(char *nom_dicc, char *llave, char *def) {
                 break;
             }
         }
+    
         //Nos dirigimos hacia la línea preeliminar
         fseek(in, i_llave * 81, SEEK_SET);
         //Leemos la línea completa y la almacenamos en el buffer
-        fgets(buf, sizeof(buf), in);
+        fread(buf, sizeof(buf), 1, in);
         //Revisamos si el primer caracter es un espacio en blanco, pues por sintaxis del diccionario,
         //si ese espacio está vacío, la línea completa debería estarlo.
         if (buf[0] == ' ') {
