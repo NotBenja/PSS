@@ -1,24 +1,21 @@
 #include <string.h>
 
-int strCmp(char *s1, char *s2) {
-    char c1;
-    char c2;
 
-    for (;;) {
-      c1= *s1;
-      c2= *s2;
-
-      if (c1==0)
-        break;
-
-      if (c1!=c2)
-        break;
-
-      s1++;
-      s2++;
+int countWords(char *a4){
+  int a0 = 0;
+  int inWord = 0;
+  char c1;
+  while(*a4){
+    c1 = *a4;
+    if(c1 != 32 && !inWord){
+      inWord = 1;
+      a0++;
+    } else if (c1 == 32){
+      inWord = 0;
     }
-
-    return c1 - c2;
+    a4++;
+  }
+  return a0;
 }
 
 void sort(char **a, int n) {
@@ -26,7 +23,7 @@ void sort(char **a, int n) {
   char **p= a;
   while (p<ult) {
 
-    int t1= strCmp(p[0], p[1]);
+    int t1= (countWords(p[0]) - countWords(p[1]));
 
     if (t1 <= 0)
       p++;

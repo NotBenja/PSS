@@ -41,13 +41,50 @@ sort:                   # void sort(uint nums[], int n) { // registros a0, a1
     # El valor de p esta temporalmente en el registro t0
     # No puede hacer mas trabajo que la comparacion (no puede usar ret)
     lw      a0,0(t0)    #     int rc= strcmp(p[0], p[1]); // registro t1
-    lw      a1,4(t0)
-    call    strcmp      #     // valor retornado queda en registro a0
+    call    countWords      #     // valor retornado queda en registro a0
                         #     // p ya no esta en el registro t0
     mv      t1,a0       #     // Dejar resultado de la comparacion en t1
 
+    sw      t0,56(sp) 
+
+    lw      a1,4(t0)
+    call    countWords
+    mv      t2,a1
+    sub     t1, t1, t2
+    ble     t1,zero,.decision
+    
+
     # En el registro t1 debe quedar la conclusion de la comparacion:
     # si t1<=0 p[0] y p[1] estan en orden y no se intercambiaran.
+.globl countWords
+.type   countWords, @function
+countWords:
+	mv	a5,a0
+	lbu	a4,0(a0)
+	beq	a4,zero,.L5
+	li	a3,0
+	li	a0,0
+	li	a2,32     
+	li	a1,0
+	li	a6,1
+	j	.L4
+.L6:
+	mv	a3,a1
+.L3:
+	addi	a5,a5,1
+	lbu	a4,0(a5)
+	beq	a4,zero,.L8
+.L4:
+	beq	a4,a2,.L6
+	bne	a3,zero,.L3
+	addi	a0,a0,1
+	mv	a3,a6
+	j	.L3
+.L8:
+	ret
+.L5:
+	li	a0,0
+	ret
 
     #################################################
     ### Fin del codigo que Ud. debe modificar     ###
