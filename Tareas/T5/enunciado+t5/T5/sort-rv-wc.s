@@ -11,8 +11,7 @@
 
     .file "sort-rv.s"
     .text
-    .globl sort         # Se necesita para que la etiqueta sea conocida en
-                        # test-sort.c
+    .globl sort         # Se necesita para que la etiqueta sea conocida en             # test-sort.c
     .type sort, @function # typedef unsigned int uint;
 sort:                   # void sort(uint nums[], int n) { // registros a0, a1
     addi    sp,sp,-64   #   // Apila registro de activacion
@@ -41,50 +40,59 @@ sort:                   # void sort(uint nums[], int n) { // registros a0, a1
     # El valor de p esta temporalmente en el registro t0
     # No puede hacer mas trabajo que la comparacion (no puede usar ret)
     lw      a0,0(t0)    #     int rc= strcmp(p[0], p[1]); // registro t1
-    call    countWords      #     // valor retornado queda en registro a0
+    lw      a1,4(t0)
+	lbu	a5,0(a0)
+	beq	a5,zero,.L16
+	li	a6,0
+	li	a4,0
+	li	a3,32
+	li	a2,0
+	li	a7,1
+	j	.L12
+.L17:
+	mv	a4,a2
+.L11:
+	addi	a0,a0,1
+	lbu	a5,0(a0)
+	beq	a5,zero,.L10
+.L12:
+	beq	a5,a3,.L17
+	bne	a4,zero,.L11
+	addi	a6,a6,1
+	mv	a4,a7
+	j	.L11
+.L16:
+	li	a6,0
+.L10:
+	lbu	a5,0(a1)
+	beq	a5,zero,.L18
+	li	a2,0
+	li	a4,0
+	li	a3,32
+	li	a0,0
+	li	a7,1
+	j	.L15
+.L19:
+	mv	a4,a0
+.L14:
+	addi	a1,a1,1
+	lbu	a5,0(a1)
+	beq	a5,zero,.L13
+.L15:
+	beq	a5,a3,.L19
+	bne	a4,zero,.L14
+	addi	a2,a2,1
+	mv	a4,a7
+	j	.L14
+.L18:
+	li	a2,0
+.L13:
+	sub	a0,a6,a2
                         #     // p ya no esta en el registro t0
     mv      t1,a0       #     // Dejar resultado de la comparacion en t1
 
-    sw      t0,56(sp) 
-
-    lw      a1,4(t0)
-    call    countWords
-    mv      t2,a1
-    sub     t1, t1, t2
-    ble     t1,zero,.decision
-    
-
     # En el registro t1 debe quedar la conclusion de la comparacion:
     # si t1<=0 p[0] y p[1] estan en orden y no se intercambiaran.
-.globl countWords
-.type   countWords, @function
-countWords:
-	mv	a5,a0
-	lbu	a4,0(a0)
-	beq	a4,zero,.L5
-	li	a3,0
-	li	a0,0
-	li	a2,32     
-	li	a1,0
-	li	a6,1
-	j	.L4
-.L6:
-	mv	a3,a1
-.L3:
-	addi	a5,a5,1
-	lbu	a4,0(a5)
-	beq	a4,zero,.L8
-.L4:
-	beq	a4,a2,.L6
-	bne	a3,zero,.L3
-	addi	a0,a0,1
-	mv	a3,a6
-	j	.L3
-.L8:
-	ret
-.L5:
-	li	a0,0
-	ret
 
     #################################################
     ### Fin del codigo que Ud. debe modificar     ###

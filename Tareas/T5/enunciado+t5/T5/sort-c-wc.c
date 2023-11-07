@@ -1,7 +1,7 @@
 #include <string.h>
 
 
-int countWords(char *a4){
+extern inline int countWords(char *a4){
   int a0 = 0;
   int inWord = 0;
   char c1;
@@ -18,12 +18,17 @@ int countWords(char *a4){
   return a0;
 }
 
+int strCmp(char *s1, char *s2) {
+    int t1= (countWords(s1) - countWords(s2));
+    return t1;
+}
+
 void sort(char **a, int n) {
   char **ult= &a[n-1];
   char **p= a;
   while (p<ult) {
 
-    int t1= (countWords(p[0]) - countWords(p[1]));
+    int t1= strCmp(p[0], p[1]);
 
     if (t1 <= 0)
       p++;
